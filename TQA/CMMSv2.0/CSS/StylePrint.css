@@ -1,0 +1,64 @@
+﻿BODY
+{
+  margin: 0;
+	padding: 0;
+	font-family: "Lucida Grande", Verdana, sans-serif;
+	font-size: small;
+	color: #38230E;
+	background-color: #F6F1DE;
+}
+
+.header
+{
+	height: 70px;
+	background-color: #FFFFFF;
+	border-top: 8px solid #6699CC;
+	border-top-color: rgb(100,135,220);
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-width: 30px;
+	border-bottom-width: 1px;
+	border-bottom-color: rgb(100,135,220);
+}
+
+.navStuff
+{
+    DISPLAY: none
+}
+.showOnlyInPrinterFriendlyView
+{
+}
+.showOnlyInNormalView
+{
+    DISPLAY: none
+}
+a:after
+{
+	content:' [' attr(href) '] '
+}	
+
+.markermenu
+{
+	display:none
+}
+	
+#footer
+{
+	display:none
+}
+	
+.inner_header-right
+{
+	display:none
+}
+	
+.menu-div
+{
+	display:none;
+}	
+
+.inner_header-status
+{ 
+	display:none;
+}
+

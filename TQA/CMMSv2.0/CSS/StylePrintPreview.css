@@ -1,0 +1,20 @@
+﻿body
+{
+	margin: 15px;
+	padding: 0;
+	font-family: "Lucida Grande" , Verdana, Sans-serif, Arial;
+	font-size: smaller;
+	color: #38230E;
+}
+table
+{
+    table-layout:fixed;
+    font-family: "Lucida Grande" , Verdana, Sans-serif, Arial;
+    font-size: smaller;
+}
+textarea{
+	font-family:arial;
+	color:#333;
+	font-size:12px;
+	vertical-align:middle;
+}

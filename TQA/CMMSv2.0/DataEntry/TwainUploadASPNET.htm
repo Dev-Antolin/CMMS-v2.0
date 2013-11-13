@@ -1,0 +1,138 @@
+<html>
+<head>
+    <title>CMMS Web Version 1.0</title>
+    <meta http-equiv="CACHE-CONTROL" content="NO-STORE" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <meta http-equiv="PRAGMA" content="NO-CACHE" />
+    <link rel="shortcut icon" href="../Images/application.ico" />
+    <link href="../CSS/CMMSStyle.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        #csxi
+        {
+            width: 650px;
+            height: 830px;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+<!--
+
+        var Success
+
+        function Initialisation() {
+            document.form1.selectbutton.disabled = false
+            document.form1.scanbutton.disabled = true
+            document.form1.uploadbutton.disabled = true
+        }
+
+        function SelectClick() {
+            csxi.SelectTwainDevice();
+            if (csxi.TwainConnected) {
+                document.form1.scanbutton.disabled = false
+                document.form1.selectbutton.disabled = true
+            }
+        }
+
+        function ScanClick() {
+            csxi.Acquire();
+            if (csxi.ImageHeight != 0) {
+                document.form1.uploadbutton.disabled = false
+                document.form1.selectbutton.disabled = true
+                document.form1.scanbutton.disabled = true
+            }
+            else {
+
+            }
+        }
+        function UploadClick() {
+            //Add the URL to the file saving script, including the http:// prefix.
+            //The third parameter is the name that would appear in the HTML input type=file tag. csNetUpload does not use it.
+            //Success = csxi.PostImage('http://192.168.3.172/GMOWeb/filesave.aspx', 'memo.jpg', '', 2);
+            //Success = csxi.PostImage('http://testwebserver1/GMOWeb/filesave.aspx', 'memo.jpg', '', 2);
+            //Success = csxi.PostImage('http://localhost:1159/GMOWeb/filesave.aspx', 'memo.jpg', '', 2);
+            Success = csxi.PostImage('http://localhost:4415/MLhuillierinc-CMMS-Web/DataEntry/filesave.aspx', 'BEScan.jpg', '', 2);
+            if (Success) {
+                alert('Image Uploaded')
+                var answer = confirm("Do you want to scan another page?")
+                if (answer)
+                    Initialisation()
+                else
+                    window.location = "CABasicData.aspx";
+                    document.form1.uploadbutton.disabled = true
+            }
+            else {
+                alert('Upload Failed')
+            }
+        }
+        function disableBackButton() {
+            window.history.forward();
+        }
+        setTimeout("disableBackButton()", 0);
+        function confirmation() {
+            window.location = "CABasicData.aspx";}
+	
+-->
+    </script>
+
+</head>
+<body onload="Initialisation()">
+    <form name="form1" runat="server" style="text-align: center">
+    <div id="wrapperScan">
+        <div class="header">
+            <div class="header_interior">
+                <div class="head_interior-left_column">
+                    <img src="../Images/MLBig.gif" alt="Logo" style="margin-right: 10px;" />
+                </div>
+            </div>
+        </div>
+        <div id="content_interiorScan" style="height: 50px">
+            <div class="menu-horizontal">
+                <div class="versionLogin">
+                    CMMS Web Version 1.0
+                </div>
+            </div>
+            <table>
+                <tr>
+                    <td>
+                        <input type="button" name="selectbutton" value="Select Device" onclick="SelectClick()"
+                            style="width: 119px" />
+                    </td>
+                    <td>
+                        <input type="button" name="scanbutton" value="Scan Image" onclick="ScanClick()" style="width: 105px" />
+                    </td>
+                    <td>
+                        <input type="button" name="uploadbutton" value="Upload Image" onclick="UploadClick();"
+                            style="width: 119px" />
+                    </td>
+                    <td>
+                        <input type="button" name="returnbutton" value="Return Menu" onclick="confirmation()"
+                            style="width: 119px" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </form>
+    <div class="content_body_Scan" style="height: 353px">
+        <center>
+            <object classid="clsid:5220cb21-c88d-11cf-b347-00aa00a28331">
+                <param name="LPKPath" value="csximage.lpk" />
+            </object>
+            <object id="csxi" classid="clsid:62E57FC5-1CCD-11D7-8344-00C1261173F0" codebase="csximage.cab"
+                width="600" height="400">
+            </object>
+        </center>
+    </div>
+    
+    <!--<div id="footer">
+        <div class="left">
+            &nbsp; M. Lhuillier Financial Services Inc.
+        </div>
+        <br class="doNotDisplay doNotPrint" />
+        <div class="right">
+            All Rights Reserved. &nbsp;
+        </div>
+    </div>-->
+</body>
+</html>
