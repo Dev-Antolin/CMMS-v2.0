@@ -1,0 +1,81 @@
+﻿<%@ Master Language="VB" MasterPageFile="~/MainUserMasterPage.master" AutoEventWireup="false" CodeFile="LeftRPTMainMasterPage.master.vb" Inherits="LeftRPTMainMasterPage" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="CMMSLeftContentPlaceHolder" Runat="Server">
+    <div id="leftpage">
+        <div id="side-bar">
+            <div>
+                <p class="sideBarTitle">Report Asset Menu</p>
+                <ul>
+                    <li>
+                        <asp:LinkButton ID="DP" href="../Report/DivisionProf.aspx" runat="server">&rsaquo; Division Asset Profile</asp:LinkButton></li>
+                    <li>
+                        <asp:LinkButton ID="BP" href="../Report/BranchProf.aspx" runat="server">&rsaquo; Branch Asset Profile</asp:LinkButton></li>
+                    <li>
+                        <asp:LinkButton ID="AP" href="../Report/AreaProf.aspx" runat="server">&rsaquo; Area Asset Profile</asp:LinkButton></li>
+                    <li>
+                        <asp:LinkButton ID="RP" href="../Report/RegionProf.aspx" runat="server">&rsaquo; Region Asset Profile</asp:LinkButton></li>
+                    <li>
+                        <asp:LinkButton ID="AM" href="../Report/MaintenanceCategory.aspx" runat="server">&rsaquo; Maintenance History</asp:LinkButton></li>                        
+                    </ul>
+            </div>
+            <div class="lighterBackground">
+                <!-- ##### Display Link ##### -->
+            </div>
+            <div>
+                <!-- ##### Display Link ##### -->
+                <strong class="sideBarTitle">INFORMATION</strong>
+            </div>
+        </div>
+        <div id="info">
+            <table style="margin-top:10px;">
+                <tr>
+                    <td width="40px;">
+                        <asp:Image ID="Image5" runat="server" ImageUrl="~/Images/job.gif" />
+                    </td>
+                    <td class="tdTxtBox">
+                        <span id="Span2"></span>
+                        <asp:Label ID="lblJob" runat="server" Text="Job description"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40px;">
+                        <asp:Image ID="Image4" runat="server" ImageUrl="~/Images/CostCenter1.PNG" />
+                    </td>
+                    <td class="tdTxtBox">
+                        <span id="Span1"></span>
+                        <asp:Label ID="lblCostCenter" runat="server" Text="Cost Center"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40px;">
+                        <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/calendar.PNG" />
+                    </td>
+                    <td class="tdTxtBox">
+                        <span id="jclock2"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40px;">
+                        <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/clock.PNG" />
+                    </td>
+                    <td class="tdTxtBox">
+                        <span id="jclock1"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40px;">
+                        <asp:Image ID="Image3" runat="server" ImageUrl="~/Images/home.PNG" />
+                    </td>
+                    <td class="tdTxtBox">
+                        <asp:Label ID="lblHO" runat="server" Text="HO"></asp:Label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="rightpage">
+        <asp:ContentPlaceHolder ID="CMMSMainContentPlaceHolder" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+</asp:Content>
+
