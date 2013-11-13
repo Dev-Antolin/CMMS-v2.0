@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode url="DataEntry/CABasicData.aspx" title="Data Entry"  description="">
+    <siteMapNode url="Report/Default.aspx" title="Report"  description="" >
+      <siteMapNode url="Report/BranchProf.aspx" title="> Branch Report"  description="" />
+      <siteMapNode url="Report/AreaProf.aspx" title="> Area Report"  description="" />
+      <siteMapNode url="Report/RegionProf.aspx" title="> Region Report"  description="" />
+    </siteMapNode>
+    <siteMapNode url="WorkOrder/Default.aspx" title="WorkOrder"  description="" >
+      <siteMapNode url="WorkOrder/CreateWO.aspx" title="> Create Work Order"  description="" />
+      <siteMapNode url="WorkOrder/ReceivedWO.aspx" title="> Received Work Order"  description="" />
+      <siteMapNode url="WorkOrder/OpenWO.aspx" title="> Open Work Order"  description="" />
+      <siteMapNode url="WorkOrder/CloseWO.aspx" title="> Close Work Order"  description="" />
+    </siteMapNode>
+  </siteMapNode>
+</siteMap>
