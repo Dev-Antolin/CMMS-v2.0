@@ -1,0 +1,233 @@
+﻿<%@ Master Language="VB" CodeFile="MainMasterPage.master.vb" Inherits="MainMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <meta http-equiv="PRAGMA" content="NO-CACHE" />
+    <link rel="shortcut icon" href="Images/application.ico" />
+    <link href="CSS/CMMSStyle.css" rel="stylesheet" type="text/css" />
+    <link href="CSS/Msg.css" rel="stylesheet" type="text/css" />
+    <link href="CSS/ModalPopUpExtender.css" rel="stylesheet" type="text/css" />
+    <script src="../lib/sitemasterpage.js" type="text/javascript"></script>
+    <link href="windowfiles/dhtmlwindow.css" rel="stylesheet" type="text/css" />
+    <script src="../windowfiles/dhtmlwindow.js" type="text/javascript"></script>
+    <link href="asm_includes/AutoSuggestMenu.css" rel="stylesheet" type="text/css" />
+    <link href="modalfiles/modal.css" rel="stylesheet" type="text/css" />
+    <script src="../modalfiles/modal.js" type="text/javascript"></script>
+    <script src="../lib/jquery-1.4.4.min.js" type="text/javascript"></script>
+    <script src="../lib/jquery.jclock.js" type="text/javascript"></script>
+    <script src="../lib/jquery.toastmessage.js" type="text/javascript"></script>
+    <link href="CSS/jquery.toastmessage.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        $(function($) {
+            var options1 = {
+                format: '%I:%M:%S %P' // 12-hour
+            }
+            $('#jclock1').jclock(options1);
+
+
+            var options2 = {
+                format: '%a %b %d, %Y' //date
+            }
+            $('#jclock2').jclock(options2);
+
+            //move to next textbox using enter key    
+            $('input:text:first').focus();
+            var $inp = $('input:text');
+            $inp.bind('keydown', function(e) {
+                //var key = (e.keyCode ? e.keyCode : e.charCode);
+                var key = e.which;
+                if ((key == 13) || (key == 9)) {
+                    e.preventDefault();
+                    var nxtIdx = $inp.index(this) + 1;
+                    $(":input:text:eq(" + nxtIdx + ")").focus();
+                }
+            });
+
+        });
+  </script>
+  <script type = "text/javascript" >
+      function mask(str, textbox, loc, delim) {
+          var locs = loc.split(',');
+
+          for (var i = 0; i <= locs.length; i++) {
+              for (var k = 0; k <= str.length; k++) {
+                  if (k == locs[i]) {
+                      if (str.substring(k, k + 1) != delim) {
+                          str = str.substring(0, k) + delim + str.substring(k, str.length)
+                      }
+                  }
+              }
+          }
+          textbox.value = str
+      }
+  </script>
+  <script type = "text/javascript">
+      var counter = 0;
+      function AddFileUpload() {
+          var div = document.createElement('DIV');
+          div.innerHTML = '<input id="file' + counter + '" name = "file' + counter +
+                             '" type="file" size="30" />' +
+                             '&nbsp;<input id="Image' + counter + '" type="image" ' +
+                             'value="Remove" src="../Images/cancel.png" width="13" height="11" onclick = "RemoveFileUpload(this)"/>';
+          document.getElementById("FileUploadContainer").appendChild(div);
+          counter++;
+      }
+      function RemoveFileUpload(div) {
+          document.getElementById("FileUploadContainer").removeChild(div.parentNode);
+      }
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <asp:SiteMapDataSource ID="smdsMaster" runat="server" />
+    <asp:SiteMapDataSource ID="smdsChild" runat="server" ShowStartingNode="false" StartFromCurrentNode="true" />
+    <div id="wrapper">
+        <div class="header">
+            <div class="header_interior">
+                <div class="head_interior-left_column">
+                    <img src="../Images/MLBig.gif" alt="logo" />
+                </div>
+                <div class="inner_header-status">
+                    <asp:Label ID="lblLoginUser" runat="server" Text="loginUser"></asp:Label>
+                    |
+                    <asp:LinkButton ID="btnLogout" runat="server" Style="color: #006699;">Logout</asp:LinkButton>
+                </div>
+            </div>
+        </div>
+        <div id="page">
+            <div id="menu">
+                <div class="menu-horizontal">
+                    <div class="menu-horizontal-interior">
+                        <div class="versionMainMenu">
+                            CMMS Web Version 2.0
+                        </div>
+                        <asp:Menu ID="Menu1" runat="server" CssClass="TabSelection" 
+                            EnableTheming="True" StaticEnableDefaultPopOutImage="False"
+                            SkipLinkText="" DataSourceID="smdsMaster"
+                            DynamicEnableDefaultPopOutImage="False" Orientation="Horizontal" 
+                            StaticDisplayLevels="2" MaximumDynamicDisplayLevels="0">
+                            <%-- MaximumDynamicDisplayLevels="5" for displayin submenus--%>
+                            <StaticMenuItemStyle CssClass="Item" />
+                            <StaticSelectedStyle CssClass="ItemSelected" />
+                            <StaticHoverStyle CssClass="ItemHover" />
+                            <StaticMenuItemStyle HorizontalPadding="10px" VerticalPadding="5px" />
+                            <DynamicMenuItemStyle CssClass="MenuItem" />
+                            <DynamicSelectedStyle CssClass="ItemSelected" />
+                            <DynamicHoverStyle CssClass="ItemHover" />
+                            <DynamicMenuItemStyle HorizontalPadding="10px" VerticalPadding="5px" />
+                        </asp:Menu>
+                        <asp:Label ID="lblWorkLabel" CssClass="workorderDetail" runat="server"></asp:Label>
+                    </div>
+                </div>
+                <div id="leftpage">
+                    <strong class="sideBarTitle"><asp:Label ID="lblCategory" runat="server"></asp:Label></strong>
+                    <asp:Menu ID="mnuChild" runat="server" DataSourceID="smdsChild" BackColor="#C1DFFF"
+                        DynamicHorizontalOffset="2" Font-Names="Arial" StaticSubMenuIndent="10px" Width="180px">
+                        <StaticSelectedStyle CssClass="ItemSelected" />
+                        <StaticHoverStyle CssClass="ItemHover" />
+                        <StaticMenuItemStyle HorizontalPadding="10px" VerticalPadding="5px" />
+                        <DynamicSelectedStyle CssClass="ItemSelected" />
+                        <DynamicHoverStyle CssClass="ItemHover" />
+                        <DynamicMenuItemStyle HorizontalPadding="10px" VerticalPadding="5px" CssClass="MenuItem" />
+                    </asp:Menu>
+                    <asp:Menu ID="NavigationMenu" runat="server" BackColor="#C1DFFF" 
+                        Font-Names="Arial" StaticSubMenuIndent="10px" Width="180px" Orientation="Vertical">
+                        <StaticSelectedStyle CssClass="ItemSelected" />
+                        <StaticHoverStyle CssClass="ItemHover" />
+                        <StaticMenuItemStyle HorizontalPadding="10px" VerticalPadding="5px" />
+                        <DynamicSelectedStyle CssClass="ItemSelected" />
+                        <DynamicHoverStyle CssClass="ItemHover" />
+                        <DynamicMenuItemStyle HorizontalPadding="10px" VerticalPadding="5px" CssClass="MenuItem" />                    <Items>
+                        <asp:MenuItem NavigateUrl="~/DataEntry/CABasicData.aspx" Text="> Basic Data"/>
+                        <asp:MenuItem NavigateUrl="~/DataEntry/CAAddDevice.aspx" Text="> Additional Device"/>
+                        </Items>
+                    </asp:Menu>
+                    <%--<asp:Menu ID="mnuChild2" runat="server" BackColor="#C1DFFF" 
+                        Font-Names="Arial" StaticSubMenuIndent="10px" Width="180px" Orientation="Vertical">
+                        <StaticSelectedStyle CssClass="ItemSelected" />
+                        <StaticHoverStyle CssClass="ItemHover" />
+                        <StaticMenuItemStyle HorizontalPadding="10px" VerticalPadding="5px" />
+                        <DynamicSelectedStyle CssClass="ItemSelected" />
+                        <DynamicHoverStyle CssClass="ItemHover" />
+                        <DynamicMenuItemStyle HorizontalPadding="10px" VerticalPadding="5px" CssClass="MenuItem" />                    <Items>
+                        <asp:MenuItem NavigateUrl="~/WorkOrder/CreateWO.aspx" Text="> Create Work Order"/>
+                        <asp:MenuItem NavigateUrl="~/WorkOrder/ReceivedWO.aspx" Text="> Received Work Order"/>
+                        <asp:MenuItem NavigateUrl="~/WorkOrder/OpenWO.aspx" Text="> Open Work Order"/>
+                        <asp:MenuItem NavigateUrl="~/WorkOrder/CloseWO.aspx" Text="> Close Work Order"/>
+                        </Items>
+                    </asp:Menu>--%>
+                    <div id="info">
+                        <strong class="sideBarTitle"><asp:Label ID="lblInfo" runat="server" Text="Information"></asp:Label></strong>
+                        <table>
+                            <tr>
+                                <td width="40px;">
+                                    <asp:Image ID="Image5" runat="server" ImageUrl="~/Images/job.gif" />
+                                </td>
+                                <td class="tdTxtBox">
+                                    <span id="Span2"></span>
+                                    <asp:Label ID="lblJob" runat="server" Text="Job description"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="40px;">
+                                    <asp:Image ID="Image4" runat="server" ImageUrl="~/Images/CostCenter1.PNG" />
+                                </td>
+                                <td class="tdTxtBox">
+                                    <span id="Span1"></span>
+                                    <asp:Label ID="lblCostCenter" runat="server" Text="Cost Center"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="40px;">
+                                    <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/calendar.PNG" />
+                                </td>
+                                <td class="tdTxtBox">
+                                    <span id="jclock2"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="40px;">
+                                    <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/clock.PNG" />
+                                </td>
+                                <td class="tdTxtBox">
+                                    <span id="jclock1"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="40px;">
+                                    <asp:Image ID="Image3" runat="server" ImageUrl="~/Images/home.PNG" />
+                                </td>
+                                <td class="tdTxtBox">
+                                    <asp:Label ID="lblHO" runat="server" Text="HO"></asp:Label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div id="rightpage">
+                <asp:ContentPlaceHolder ID="CMMSMainContentPlaceHolder" runat="server">
+                
+                </asp:ContentPlaceHolder>
+            </div>
+            <div style="clear: both;">
+                &nbsp;</div>
+        </div>
+        <div id="footer">
+            <div class="left">
+                &nbsp; M. Lhuillier Financial Services Inc.
+            </div>
+            <br class="doNotDisplay doNotPrint" />
+            <div class="right">
+                All Rights Reserved. &nbsp;
+            </div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>
